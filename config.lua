@@ -7,11 +7,31 @@ a global executable or a path to
 an executable
 ]]
 
+-- Additional Plugins
+lvim.plugins = {
+  { "ellisonleao/gruvbox.nvim" },
+  { "mfussenegger/nvim-dap-python" },
+  { "Saecki/crates.nvim" },
+  { "catppuccin/nvim", as = "catppuccin" },
+  { "kevinhwang91/nvim-ufo", requires = "kevinhwang91/promise-async" }
+}
+-- lvim.plugins = {
+--     {
+--       "folke/trouble.nvim",
+--       cmd = "TroubleToggle",
+--     },
+-- }
 
 -- general
 lvim.log.level = "warn"
 lvim.format_on_save = false
 lvim.colorscheme = "catppuccin"
+
+vim.o.foldcolumn = '1'
+vim.o.foldlevel = 90
+vim.o.foldlevelstart = 90
+vim.o.foldenable = true
+
 require("catppuccin").setup({
   flavour = "mocha", -- latte, frappe, macchiato, mocha
   background = { -- :h background
@@ -19,7 +39,7 @@ require("catppuccin").setup({
     dark = "mocha",
   },
   compile_path = vim.fn.stdpath("cache") .. "/catppuccin",
-  transparent_background = false,
+  transparent_background = true,
   term_colors = false,
   dim_inactive = {
     enabled = false,
@@ -192,6 +212,12 @@ require('crates').setup {
   },
 }
 
+require('ufo').setup({
+  provider_selector = function()
+    return { 'treesitter', 'indent' }
+  end
+})
+
 -- to disable icons and use a minimalist setup, uncomment the following
 -- lvim.use_icons = false
 
@@ -361,19 +387,6 @@ linters.setup {
   -- },
 }
 
--- Additional Plugins
-lvim.plugins = {
-  { "ellisonleao/gruvbox.nvim" },
-  { "mfussenegger/nvim-dap-python" },
-  { "Saecki/crates.nvim" },
-  { "catppuccin/nvim", as = "catppuccin" }
-}
--- lvim.plugins = {
---     {
---       "folke/trouble.nvim",
---       cmd = "TroubleToggle",
---     },
--- }
 
 -- Autocommands (https://neovim.io/doc/user/autocmd.html)
 -- vim.api.nvim_create_autocmd("BufEnter", {
